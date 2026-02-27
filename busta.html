@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Save the date Denise & Alessandro</title>
@@ -60,6 +60,7 @@
 			align-items: center;
 			position: relative;
 			animation: fadeInUp 1.2s ease-out forwards;
+			mask-image: -webkit-radial-gradient(white, black);
 			-webkit-mask-image: -webkit-radial-gradient(white, black);
 		}
 
@@ -196,176 +197,213 @@
             .main-photo { width: 100%; max-width: 280px; }
         }
     </style>
-</head>
-<body>
-
-
+  </head>
+  <body>
     <div class="envelope">
-        <div class="floral-top-left"></div>
-        <div class="floral-bottom-right"></div>
-        <div class="floral-top-right"></div>
-        <div class="floral-bottom-left"></div>
+      <div class="floral-top-left"></div>
+      <div class="floral-bottom-right"></div>
+      <div class="floral-top-right"></div>
+      <div class="floral-bottom-left"></div>
 
-        <div class="floral-icon delay-1">✧</div>
-        <div class="tagline delay-1">Save the Date</div>
+      <div class="floral-icon delay-1">✧</div>
+      <div class="tagline delay-1">Save the Date</div>
 
-        <div class="main-photo-container">
-            <img src="names_4k_space.png" class="main-photo" alt="Denise & Alessandro">
-        </div>
-        
-        <p class="intro-text delay-2">Scopri i dettagli del nostro matrimonio</p>
-        
-        <div class="scratch-container delay-3" id="container">
-            <div class="date-text">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="color:var(--accent); font-size: 0.8rem;">✧</span>
-                    <span id="the-date">08 . 07 . 2027</span>
-                    <span style="color:var(--accent); font-size: 0.8rem;">✧</span>
-                </div>
-                <div class="location-subtext">Villa dei Mulini, Mantova</div>
-            </div>
-            <div class="glitter-overlay" id="glitter-box"></div>
-            <canvas id="date-scratch"></canvas>
-        </div>
+      <div class="main-photo-container">
+        <img
+          src="names_4k_space.png"
+          class="main-photo"
+          alt="Denise & Alessandro"
+        />
+      </div>
 
-        <div class="countdown-flex delay-4">
-            <div class="unit"><span class="val" id="d">00</span><span class="lbl">Giorni</span></div>
-            <div class="unit"><span class="val" id="h">00</span><span class="lbl">Ore</span></div>
-            <div class="unit"><span class="val" id="m">00</span><span class="lbl">Minuti</span></div>
-            <div class="unit"><span class="val" id="s">00</span><span class="lbl">Secondi</span></div>
-        </div>
+      <p class="intro-text delay-2">Scopri i dettagli del nostro matrimonio</p>
 
-        <div class="actions delay-5">
-            <a href="#" id="cal-link" class="btn">SALVA NEL CALENDARIO</a>
-            <a href="https://maps.google.com/?q=Villa+dei+Mulini+Mantova" id="map-link" class="btn" target="_blank">VEDI LA LOCATION</a>
+      <div class="scratch-container delay-3" id="container">
+        <div class="date-text">
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span style="color: var(--accent); font-size: 0.8rem">✧</span>
+            <span id="the-date">08 . 07 . 2027</span>
+            <span style="color: var(--accent); font-size: 0.8rem">✧</span>
+          </div>
+          <div class="location-subtext">Villa dei Mulini, Mantova</div>
         </div>
-        
-        <div class="floral-icon delay-5" style="animation-delay: 2s;">✧</div>
+        <div class="glitter-overlay" id="glitter-box"></div>
+        <canvas id="date-scratch"></canvas>
+      </div>
+
+      <div class="countdown-flex delay-4">
+        <div class="unit">
+          <span class="val" id="d">00</span><span class="lbl">Giorni</span>
+        </div>
+        <div class="unit">
+          <span class="val" id="h">00</span><span class="lbl">Ore</span>
+        </div>
+        <div class="unit">
+          <span class="val" id="m">00</span><span class="lbl">Minuti</span>
+        </div>
+        <div class="unit">
+          <span class="val" id="s">00</span><span class="lbl">Secondi</span>
+        </div>
+      </div>
+
+      <div class="actions delay-5">
+        <a href="#" id="cal-link" class="btn">SALVA NEL CALENDARIO</a>
+        <a
+          href="https://maps.google.com/?q=Villa+dei+Mulini+Mantova"
+          id="map-link"
+          class="btn"
+          target="_blank"
+          >VEDI LA LOCATION</a
+        >
+      </div>
+
+      <div class="floral-icon delay-5" style="animation-delay: 2s">✧</div>
     </div>
 
-<script>
-        const DATA = {
-            sposo: 'Alessandro',
-            sposa: 'Denise',
-            dataISO: '2027-07-08T16:00:00',
-            locationNome: 'Villa dei Mulini, Mantova',
-            mappaLink: 'https://maps.google.com/?q=Villa+dei+Mulini+Mantova'
-        };
+    <script>
+      const DATA = {
+        sposo: "Alessandro",
+        sposa: "Denise",
+        dataISO: "2027-07-08T16:00:00",
+        locationNome: "Villa dei Mulini, Mantova",
+        mappaLink: "https://maps.google.com/?q=Villa+dei+Mulini+Mantova",
+      };
 
-        const canvas = document.getElementById('date-scratch');
-        const ctx = canvas.getContext('2d');
-        const glitterBox = document.getElementById('glitter-box');
-        let scratchCount = 0;
-        let isRevealed = false;
+      const canvas = document.getElementById("date-scratch");
+      const ctx = canvas.getContext("2d");
+      const glitterBox = document.getElementById("glitter-box");
+      let scratchCount = 0;
+      let isRevealed = false;
 
-        function createGlitter() {
-            for (let i = 0; i < 15; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const size = Math.random() * 8 + 4 + 'px';
-                star.style.width = size;
-                star.style.height = size;
-                star.style.top = Math.random() * 100 + '%';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.setProperty('--d', (Math.random() * 2 + 1) + 's');
-                star.style.animationDelay = Math.random() * 2 + 's';
-                glitterBox.appendChild(star);
-            }
+      function createGlitter() {
+        for (let i = 0; i < 15; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          const size = Math.random() * 8 + 4 + "px";
+          star.style.width = size;
+          star.style.height = size;
+          star.style.top = Math.random() * 100 + "%";
+          star.style.left = Math.random() * 100 + "%";
+          star.style.setProperty("--d", Math.random() * 2 + 1 + "s");
+          star.style.animationDelay = Math.random() * 2 + "s";
+          glitterBox.appendChild(star);
         }
+      }
 
-        function initScratch() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            
-            const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-            grad.addColorStop(0, '#D4AF37');
-            grad.addColorStop(0.5, '#F2D379');
-            grad.addColorStop(1, '#D4AF37');
-            
-            ctx.fillStyle = grad;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = '#ffffff';
-            ctx.font = "600 16px 'Montserrat', sans-serif";
-            ctx.textAlign = 'center';
-            ctx.fillText('GRATTAMI', canvas.width / 2, canvas.height / 2 + 6);
-            createGlitter();
-        }
+      function initScratch() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
 
-        window.addEventListener('load', initScratch);
+        const grad = ctx.createLinearGradient(
+          0,
+          0,
+          canvas.width,
+          canvas.height,
+        );
+        grad.addColorStop(0, "#D4AF37");
+        grad.addColorStop(0.5, "#F2D379");
+        grad.addColorStop(1, "#D4AF37");
 
-        function getPointerPos(e) {
-            const rect = canvas.getBoundingClientRect();
-            let clientX = e.clientX || (e.touches && e.touches[0].clientX);
-            let clientY = e.clientY || (e.touches && e.touches[0].clientY);
-            return { x: clientX - rect.left, y: clientY - rect.top };
-        }
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        function handleScratch(e) {
-            if (isRevealed) return;
-            const pos = getPointerPos(e);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "600 16px 'Montserrat', sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("GRATTAMI", canvas.width / 2, canvas.height / 2 + 6);
+        createGlitter();
+      }
 
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath();
-            ctx.arc(pos.x, pos.y, 30, 0, Math.PI * 2); 
-            ctx.fill();
+      window.addEventListener("load", initScratch);
 
-            scratchCount++;
-            if (scratchCount > 30) revealData();
-        }
+      function getPointerPos(e) {
+        const rect = canvas.getBoundingClientRect();
+        let clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        let clientY = e.clientY || (e.touches && e.touches[0].clientY);
+        return { x: clientX - rect.left, y: clientY - rect.top };
+      }
 
-        function revealData() {
-            if (isRevealed) return;
-            isRevealed = true;
-            canvas.style.transition = 'opacity 1s ease';
-            glitterBox.style.transition = 'opacity 1s ease';
-            canvas.style.opacity = '0';
-            glitterBox.style.opacity = '0';
-            lanciaCoriandoli();
-            setTimeout(() => {
-                canvas.remove();
-                glitterBox.remove();
-            }, 1000);
-        }
+      function handleScratch(e) {
+        if (isRevealed) return;
+        const pos = getPointerPos(e);
 
-        canvas.addEventListener('mousemove', handleScratch);
-        canvas.addEventListener('mouseenter', handleScratch);
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, 30, 0, Math.PI * 2);
+        ctx.fill();
 
-        canvas.addEventListener('touchmove', (e) => { 
-            handleScratch(e); 
-            e.preventDefault(); 
-        }, { passive: false });
+        scratchCount++;
+        if (scratchCount > 30) revealData();
+      }
 
-        function lanciaCoriandoli() {
-            var duration = 3000;
-            var end = Date.now() + duration;
-            (function frame() {
-                confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0, y: 0.8 }, colors: ['#D4AF37', '#ffffff', '#AA82C8'] });
-                confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1, y: 0.8 }, colors: ['#D4AF37', '#ffffff', '#AA82C8'] });
-                if (Date.now() < end) requestAnimationFrame(frame);
-            }());
-        }
+      function revealData() {
+        if (isRevealed) return;
+        isRevealed = true;
+        canvas.style.transition = "opacity 1s ease";
+        glitterBox.style.transition = "opacity 1s ease";
+        canvas.style.opacity = "0";
+        glitterBox.style.opacity = "0";
+        lanciaCoriandoli();
+        setTimeout(() => {
+          canvas.remove();
+          glitterBox.remove();
+        }, 1000);
+      }
 
-        function updateTimer() {
-            const target = new Date(DATA.dataISO).getTime();
-            const now = new Date().getTime();
-            const gap = target - now;
-            if (gap <= 0) return;
-            const d = Math.floor(gap / (1000 * 60 * 60 * 24));
-            const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((gap % (1000 * 60)) / 1000);
-            document.getElementById('d').innerText = d.toString().padStart(2, '0');
-            document.getElementById('h').innerText = h.toString().padStart(2, '0');
-            document.getElementById('m').innerText = m.toString().padStart(2, '0');
-            document.getElementById('s').innerText = s.toString().padStart(2, '0');
-        }
-        setInterval(updateTimer, 1000);
-        updateTimer();
+      canvas.addEventListener("mousemove", handleScratch);
+      canvas.addEventListener("mouseenter", handleScratch);
 
-        document.getElementById('map-link').href = DATA.mappaLink;
-        const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Matrimonio+${DATA.sposo}+e+${DATA.sposa}&dates=${DATA.dataISO.replace(/[-:]/g, '').split('.')[0]}Z/${DATA.dataISO.replace(/[-:]/g, '').split('.')[0]}Z&location=${encodeURIComponent(DATA.locationNome)}`;
-        document.getElementById('cal-link').href = calUrl;
+      canvas.addEventListener(
+        "touchmove",
+        (e) => {
+          handleScratch(e);
+          e.preventDefault();
+        },
+        { passive: false },
+      );
+
+      function lanciaCoriandoli() {
+        var duration = 3000;
+        var end = Date.now() + duration;
+        (function frame() {
+          confetti({
+            particleCount: 3,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0, y: 0.8 },
+            colors: ["#D4AF37", "#ffffff", "#AA82C8"],
+          });
+          confetti({
+            particleCount: 3,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1, y: 0.8 },
+            colors: ["#D4AF37", "#ffffff", "#AA82C8"],
+          });
+          if (Date.now() < end) requestAnimationFrame(frame);
+        })();
+      }
+
+      function updateTimer() {
+        const target = new Date(DATA.dataISO).getTime();
+        const now = new Date().getTime();
+        const gap = target - now;
+        if (gap <= 0) return;
+        const d = Math.floor(gap / (1000 * 60 * 60 * 24));
+        const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((gap % (1000 * 60)) / 1000);
+        document.getElementById("d").innerText = d.toString().padStart(2, "0");
+        document.getElementById("h").innerText = h.toString().padStart(2, "0");
+        document.getElementById("m").innerText = m.toString().padStart(2, "0");
+        document.getElementById("s").innerText = s.toString().padStart(2, "0");
+      }
+      setInterval(updateTimer, 1000);
+      updateTimer();
+
+      document.getElementById("map-link").href = DATA.mappaLink;
+      const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Matrimonio+${DATA.sposo}+e+${DATA.sposa}&dates=${DATA.dataISO.replace(/[-:]/g, "").split(".")[0]}Z/${DATA.dataISO.replace(/[-:]/g, "").split(".")[0]}Z&location=${encodeURIComponent(DATA.locationNome)}`;
+      document.getElementById("cal-link").href = calUrl;
     </script>
-</body>
+  </body>
 </html>
