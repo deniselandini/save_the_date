@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dress Code</title>
+    <title>Programma</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@200;300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     
@@ -12,14 +12,9 @@
             --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             --text-dark: #3e3e3e;
             --accent: #A48641;
+            --gold-patina: #D4AF37;
             --glass-bg: rgba(255, 255, 255, 0.95);
             --shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            --gold-glow: rgba(164, 134, 65, 0.3);
-            /* Palette colori richiesta */
-            --celeste: #A2D2FF;
-            --lilla: #D8BFD8;
-            --beige: #E5D3B3;
-            --bianco: #FFFFFF;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,29 +40,24 @@
             0% { transform: translate(-2px, -2px) rotate(0deg); }
             100% { transform: translate(5px, 5px) rotate(1deg); }
         }
-		
-		@keyframes pulseColor {
-            0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-            50% { transform: scale(1.08); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
-        }
 
         .envelope {
             background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.4)), 
                         url('sfondo_25.png') no-repeat center;
             background-size: cover;
-            max-width: 600px;
+            max-width: 550px;
             width: 100%;
             border-radius: 60px;
             box-shadow: var(--shadow);
             overflow: hidden;
-            padding: 60px 20px; 
+            padding: 60px 40px; 
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
-            /* L'envelope appare per prima */
             animation: fadeInUp 1.2s ease-out forwards;
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
         }
 
         /* FIORI */
@@ -75,19 +65,17 @@
         .floral-bottom-right { position: absolute; bottom: -2px; right: -2px; width: 250px; height: 250px; background: url('destra_basso_sfondo.png') no-repeat bottom right; background-size: contain; z-index: 20; pointer-events: none; animation: floatCorner 5s ease-in-out infinite alternate-reverse; }
         .floral-top-right { position: absolute; top: -2px; right: -2px; width: 200px; height: 200px; background: url('destra_alto_1.png') no-repeat top right; background-size: contain; z-index: 20; pointer-events: none; animation: floatCorner 5s ease-in-out infinite alternate; }
         .floral-bottom-left { position: absolute; bottom: -2px; left: -2px; width: 200px; height: 200px; background: url('cornice_sinistra_1.png') no-repeat bottom left; background-size: contain; z-index: 20; pointer-events: none; animation: floatCorner 5s ease-in-out infinite alternate-reverse; }
-		
-        .floral-icon { font-size: 1.5rem; color: var(--accent); opacity: 0.6; margin-bottom: 10px; position: relative; z-index: 21; animation: float 8s ease-in-out infinite; }
         
-
         .title {
             font-family: 'Great Vibes', cursive;
             font-size: 3rem;
             color: var(--accent);
             opacity: 0.8;
+            position: relative;
             z-index: 10;
         }
-		
-		.title::after {
+
+        .title::after {
             content: "✧";
             display: block;
             font-size: 1rem;
@@ -101,53 +89,86 @@
             50% { transform: translateY(-10px); }
         }
 
-        .description {
-            color: #888;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        /* TIMELINE STYLE */
+        .timeline {
+            position: relative;
+            max-width: 320px;
+            margin: 0 auto;
+            padding: 0;
+            list-style: none;
+            text-align: left;
             z-index: 10;
         }
+		
+		.timeline::before {
+			content: "";
+			position: absolute;
+			left: 15px;
+			top: 5px;
+			bottom: 5px;
+			width: 1px;
+			background: var(--accent);
+			opacity: 0.6;
+		}
 
-        /* SEZIONE COLORI */
-        .palette-container {
+        .timeline-item {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 35px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .timeline-item:last-child { margin-bottom: 0; }
+
+		.timeline-dot {
+			position: absolute;
+			left: 10px;
+			top: 10px;
+			width: 11px;
+			height: 11px;
+			border-radius: 50%;
+			background: #fff;
+			border: 2px solid var(--accent);
+			z-index: 2;
+			animation: pulseDot 3s ease-in-out infinite;
+		}
+
+        .time {
+			font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            color: #888;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .label {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* STILE ICONE DORATE AGGIORNATO: Ora usa immagini dettagliate */
+        .icon-box {
+            width: 45px; /* Dimensioni leggermente aumentate per mostrare i dettagli */
+            height: 45px;
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 25px;
-            z-index: 10;
-        }
-
-        .color-item {
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 8px;
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-        }
-
-        .swatch {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-			border: 1px solid rgba(164, 134, 65, 0.2);
-			animation: pulseColor 4s ease-in-out infinite;
         }
 		
-		.swatch:hover {
-            box-shadow: 0 10px 20px var(--gold-glow);
-            border-color: var(--accent);
+		.gold-icon {
+			max-width: 100%;
+			max-height: 100%;
+			filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+			animation: iconFloat 4s ease-in-out infinite;
 		}
 		
-        .swatch-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #888;
-        }
-		.note-bianco { font-size: 0.7rem; font-style: italic; color: var(--accent); margin-top: 5px; }
-
 		.foot {
             font-family: 'Great Vibes', cursive;
 			margin-top: 20px;
@@ -162,10 +183,15 @@
             display: block;
             font-size: 1rem;
             color: var(--accent);
-			font-size: 1.5rem; color: var(--accent); opacity: 0.6; position: relative; z-index: 21; animation: float 8s ease-in-out infinite;
+			font-size: 1.5rem; color: var(--accent); opacity: 0.6; margin-bottom: 10px; position: relative; z-index: 21; animation: float 8s ease-in-out infinite;
         }
 		
-        /* Delays */
+		@keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+		
+        /* Delays per l'animazione */
         .delay-1 { animation: fadeInUp 0.8s ease-out 0.3s both; }
         .delay-2 { animation: fadeInUp 0.8s ease-out 0.6s both; }
         .delay-3 { animation: fadeInUp 0.8s ease-out 0.9s both; }
@@ -173,13 +199,32 @@
         .delay-5 { animation: fadeInUp 0.8s ease-out 1.5s both; }
         .delay-6 { animation: fadeInUp 0.8s ease-out 1.8s both; }
         .delay-7 { animation: fadeInUp 0.8s ease-out 2.1s both; }
+		
+		@keyframes pulseDot {
+			0% { transform: scale(1); opacity: 1; }
+			50% { transform: scale(1.2); opacity: 0.8; }
+			100% { transform: scale(1); opacity: 1; }
+		}
+		
+		@keyframes iconFloat {
+			0% { transform: translateY(0px); }
+			50% { transform: translateY(-3px); }
+			100% { transform: translateY(0px); }
+		}
+		
+		.timeline-item:hover {
+			transform: translateY(-3px);
+			transition: transform 0.3s ease;
+		}
 
         @media (max-width: 480px) {
-            .swatch { width: 40px; height: 40px; }
-            .title { font-size: 2.1rem; }
-			.floral-top-left, .floral-bottom-right { width: 200px; height: 200px; }
-			.floral-bottom-left, .floral-top-right { width: 150px; height: 150px; }
+            .envelope { padding: 50px 20px }
+            .title { font-size: 2.5rem; }
 			.foot { font-size: 1.5rem; }
+            .label { font-size: 1.2rem; }
+            .icon-box { width: 35px; height: 35px; }
+            .floral-top-left, .floral-bottom-right { width: 200px; height: 200px; }
+			.floral-bottom-left, .floral-top-right { width: 150px; height: 150px; }
         }
 		
 				
@@ -229,48 +274,75 @@
     <div class="envelope">
         <div class="floral-top-left"></div>
         <div class="floral-bottom-right"></div>
-		<div class="floral-top-right"></div>
+        <div class="floral-top-right"></div>
         <div class="floral-bottom-left"></div>
 
-        <div class="title delay-1">Dress Code</div>
+        <div class="title delay-1">Programma</div>
 
-        <p class="description delay-2">
-           Celebriamo l'amore con i piedi nella sabbia.<br>
-		   Vi invitiamo a scegliere un outfit fresco ed elegante,<br>
-		   ispirato alla nostra palette colori
-        </p>
+        <ul class="timeline delay-2">
+            <li class="timeline-item delay-2">
+                <div class="timeline-dot"></div>
+                <div class="time">Ore 16:00</div>
+                <div class="label">
+                    <div class="icon-box">
+                        <img src="fedi.png" alt="Anelli" class="gold-icon" />
+                    </div> 
+                    Cerimonia
+                </div>
+            </li>
 
-        <div class="palette-container">
-            <div class="color-item delay-3">
-                <div class="swatch" style="background-color: var(--celeste);"></div>
-                <span class="swatch-label">Celeste</span>
-            </div>
-            <div class="color-item delay-4">
-                <div class="swatch" style="background-color: var(--lilla);"></div>
-                <span class="swatch-label">Lilla</span>
-            </div>
-            <div class="color-item delay-5">
-                <div class="swatch" style="background-color: var(--beige);"></div>
-                <span class="swatch-label">Beige</span>
-            </div>
-        </div>
-		
-		<div class="color-item delay-6">
-			<div class="swatch" style="background-color: var(--bianco);"></div>
-			<span class="swatch-label">Bianco</span>
-			<span class="note-bianco">Per Camicie e dettagli</span>
-		</div>
+            <li class="timeline-item delay-3">
+                <div class="timeline-dot"></div>
+                <div class="time">Ore 17:00</div>
+                <div class="label">
+                    <div class="icon-box">
+                        <img src="foto.png" alt="Fotografie" class="gold-icon" />
+                    </div>
+                    Foto
+                </div>
+            </li>
 
-		
+            <li class="timeline-item delay-4">
+                <div class="timeline-dot"></div>
+                <div class="time">Ore 17:30</div>
+                <div class="label">
+                    <div class="icon-box">
+                        <img src="aperitivo.png" alt="Aperitivo" class="gold-icon" />
+                    </div>
+                    Aperitivo
+                </div>
+            </li>
+
+            <li class="timeline-item delay-5">
+                <div class="timeline-dot"></div>
+                <div class="time">Ore 20:00</div>
+                <div class="label">
+                    <div class="icon-box">
+                        <img src="cena1.png" alt="Cena" class="gold-icon" />
+                    </div>
+                    Cena
+                </div>
+            </li>
+
+            <li class="timeline-item delay-6">
+                <div class="timeline-dot"></div>
+                <div class="time">Ore 22:00</div>
+                <div class="label">
+                    <div class="icon-box">
+                        <img src="torta.png" alt="Torta" class="gold-icon" />
+                    </div>
+                    Torta
+                </div>
+            </li>
+        </ul>
+		 
 		<div class="foot delay-7">Denise & Alessandro</div>
     </div>
-	
 	<nav class="bottom-nav delay-5">
 		<a href="busta.html" class="nav-item">Home</a>
-		<a href="schedule.html" class="nav-item">Programma</a>
+		<a href="schedule.html" class="nav-item active">Programma</a>
 		<a href="listaNozze.html" class="nav-item">Lista Nozze</a>
-		<a href="info.html" class="nav-item active">Dress Code</a>
+		<a href="info.html" class="nav-item">Dress Code</a>
 	</nav>
-
 </body>
 </html>
