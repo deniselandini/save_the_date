@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Busta Elegante Interattiva - Immagini Personalizzate</title>
+
+    <style>
+      :root {
+        --gold-primary: #d4af37;
+        --letter-ink: #e8e3d5;
+      }
+
+      body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at center, #3a3a3a, #121212);
+        font-family: "Georgia", serif;
+        overflow: hidden;
+      }
+
+      /* =========================================
+         CONTENITORE PRINCIPALE
+         ========================================= */
+      .envelope {
+        position: relative;
+        width: 420px;
+        height: 600px;
+        perspective: 2000px;
+        cursor: pointer;
+        filter: drop-shadow(0 25px 40px rgba(0, 0, 0, 0.4));
+        transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.2s ease-in-out;
+      }
+
+      /* =========================================
+         INTERNO DELLA BUSTA
+         ========================================= */
+      .envelope-back {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        /* Sfondo personalizzato scuro/ombreggiato per l'interno */
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('sfondo_25.png') center/cover;
+        box-shadow: inset 0 0 60px rgba(0,0,0,0.6);
+        z-index: 1;
+      }
+
+      /* =========================================
+         LA LETTERA INTERNA
+         ========================================= */
+      .letter {
+        position: absolute;
+        top: 30px;
+        left: 20px;
+        width: 380px;
+        height: 540px;
+        /* Sfondo della lettera personalizzato */
+        background: url('sfondo_24.png') center/cover;
+        z-index: 3;
+        border-radius: 4px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        padding: 20px;
+        box-sizing: border-box;
+        transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Se 'sfondo_24.png' ha già del testo scritto sopra, 
+         puoi cancellare tutto il blocco <div class="letter-border"> nel body. 
+         Qui lascio le righe fittizie per sicurezza. */
+      .letter-border {
+        width: 100%; height: 100%;
+        border: 1px solid rgba(227, 213, 184, 0.5);
+        padding: 30px 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .letter-logo { width: 50px; height: 50px; background: rgba(212, 175, 55, 0.5); border-radius: 50%; margin-bottom: 25px; }
+      .letter-title { width: 70%; height: 14px; background: rgba(0,0,0,0.1); margin-bottom: 30px; border-radius: 2px; }
+      .letter-line { width: 90%; height: 8px; background: rgba(0,0,0,0.05); margin-bottom: 12px; border-radius: 2px; }
+      .letter-line.short { width: 60%; align-self: flex-start; margin-left: 5%; }
+      .letter-spacer { height: 20px; }
+      .letter-signature { width: 40%; height: 12px; background: rgba(212, 175, 55, 0.6); margin-top: auto; border-radius: 2px; align-self: flex-end; margin-right: 5%; }
+
+      /* =========================================
+         LEMBI DELLA BUSTA (Flaps)
+         ========================================= */
+      .flap {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+      }
+
+      .flap-left {
+        clip-path: polygon(0 0, 55% 50%, 0 100%);
+        /* Sovrappongo una leggerissima ombra CSS alla tua immagine */
+        background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.15)), url('sfondo_25.png') center/cover;
+        z-index: 4;
+      }
+
+      .flap-right {
+        clip-path: polygon(100% 0, 45% 50%, 100% 100%);
+        background: linear-gradient(to left, rgba(0,0,0,0), rgba(0,0,0,0.15)), url('sfondo_25.png') center/cover;
+        z-index: 4;
+      }
+
+      .flap-bottom {
+        clip-path: polygon(0 100%, 50% 42%, 100% 100%);
+        background: linear-gradient(to top, rgba(0,0,0,0), rgba(0,0,0,0.1)), url('sfondo_25.png') center/cover;
+        z-index: 5;
+        filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.15));
+      }
+
+      /* Contenitore lembo superiore animato */
+      .flap-top-container {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; 
+        height: 50%; 
+        z-index: 10;
+        transform-origin: top;
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.4s;
+      }
+
+      .flap-top {
+        position: absolute;
+        width: 100%; height: 100%;
+        clip-path: polygon(0 0, 50% 100%, 100% 0);
+        clip-path: polygon(-50% 0, 150% 0, 50% 110%);
+        background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,0,0,0.1)), url('sfondo_25.png') top center/cover;
+        filter: drop-shadow(0 5px 12px rgba(0,0,0,0.3));
+      }
+
+      /* =========================================
+         SIGILLO IMMAGINE
+         ========================================= */
+      .seal {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        width: 110px;
+        height: 110px;
+        z-index: 11;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .seal-image {
+        width: 150%;
+        height: 150%;
+        object-fit: contain;
+        /* Aggiungo un'ombra per far staccare il sigillo dalla busta */
+        filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.5));
+      }
+
+      /* =========================================
+         ANIMAZIONI STATE CLASSES
+         ========================================= */
+      .envelope.open .flap-top-container {
+        transform: rotateX(180deg);
+        z-index: 2;
+      }
+      .envelope.extract-letter .letter {
+        transform: translateY(-280px);
+      }
+      .envelope.zoom-fade {
+        transform: scale(1.6) translateY(100px);
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="envelope" id="envelope">
+      
+      <div class="envelope-back"></div>
+
+      <div class="letter">
+        <div class="letter-border">
+          <div class="letter-logo"></div>
+          <div class="letter-title"></div>
+          <div class="letter-line"></div>
+          <div class="letter-line"></div>
+          <div class="letter-line short"></div>
+          <div class="letter-spacer"></div>
+          <div class="letter-line"></div>
+          <div class="letter-line"></div>
+          <div class="letter-signature"></div>
+        </div>
+      </div>
+
+      <div class="flap flap-left"></div>
+      <div class="flap flap-right"></div>
+      <div class="flap flap-bottom"></div>
+
+      <div class="flap-top-container">
+        <div class="flap-top"></div>
+        <div class="seal" id="seal">
+          <img src="sigillo.png" alt="Sigillo" class="seal-image" />
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      const envelope = document.getElementById("envelope");
+
+      envelope.addEventListener("click", () => {
+        if(envelope.classList.contains("open")) return;
+
+        envelope.classList.add("open");
+
+        setTimeout(() => {
+          envelope.classList.add("extract-letter");
+        }, 800); 
+
+        setTimeout(() => {
+          envelope.classList.add("zoom-fade");
+          
+          setTimeout(() => {
+            // window.location.href = "busta.html";
+            envelope.classList.remove("open", "extract-letter", "zoom-fade");
+          }, 1200);
+
+        }, 2500);
+      });
+    </script>
+  </body>
+</html>
