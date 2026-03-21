@@ -72,21 +72,10 @@
         width: var(--envelope-w);
         height: var(--envelope-h);
         background: rgb(252, 252, 248);
-        box-shadow: 
-          inset 0 0 30px -5px var(--envelope-shadow), 
+        box-shadow:
+          inset 0 0 30px -5px var(--envelope-shadow),
           0 0 50vw 0 #757575;
         cursor: pointer;
-      }
-
-      .envelope::before {
-        content: "˚ʚ❤︎ɞ˚";
-        font-size: 5rem;
-        color: white;
-        position: absolute;
-        left: 50%; /* Centratura migliorata per tutti gli schermi */
-        top: 30%;
-        transform: translate(-50%, -60%);
-        mix-blend-mode: soft-light;
       }
 
       .envelope-flap {
@@ -157,10 +146,10 @@
         left: 10px;
         width: var(--letter-w);
         height: var(--letter-h);
-        background: url('letter.png') center/cover;
+        background: url("letter.png") center/cover;
         z-index: 1;
         border-radius: 4px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
         padding: 20px;
         box-sizing: border-box;
         transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
@@ -191,7 +180,7 @@
         transform: rotateX(180deg);
         z-index: 2;
       }
-      
+
       .envelope.extract-letter .letter {
         transform: translateY(var(--letter-extract));
       }
@@ -207,7 +196,6 @@
   <body>
     <section class="cssletter">
       <div class="envelope" id="envelope">
-
         <div class="letter"></div>
 
         <div class="envelope-flap" id="envelope-flap">
@@ -227,6 +215,11 @@
       const envelope = document.getElementById("envelope");
       const envelopeFlap = document.getElementById("envelope-flap");
 
+      document.addEventListener("DOMContentLoaded", () => {
+        envelope.classList.remove("open", "extract-letter", "zoom-fade");
+        envelopeFlap.style.zIndex = "3";
+      });
+
       envelope.addEventListener("click", () => {
         if (envelope.classList.contains("open")) return;
 
@@ -235,23 +228,18 @@
         setTimeout(() => {
           envelopeFlap.style.zIndex = "0";
         }, 400);
-        
+
         setTimeout(() => {
           envelope.classList.add("extract-letter");
         }, 800);
 
         setTimeout(() => {
-          // Utilizziamo la classe CSS responsiva creata apposta per l'effetto di uscita
           envelope.classList.add("zoom-fade");
 
           setTimeout(() => {
             window.location.href = "busta.html";
-            
-            // Pulisce le classi (utile se l'utente usa il tasto "indietro" del browser)
-            //envelope.classList.remove("open", "extract-letter", "zoom-fade");
-            //envelopeFlap.style.zIndex = "3";
           }, 1100);
-        }, 1200); /* Ho allungato di 200ms per far godere l'estrazione della lettera prima dello zoom */
+        }, 1200);
       });
     </script>
   </body>
