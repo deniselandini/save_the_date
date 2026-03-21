@@ -216,6 +216,9 @@
       const envelopeFlap = document.getElementById("envelope-flap");
 
       document.addEventListener("DOMContentLoaded", () => {
+        const envelope = document.getElementById("envelope");
+        const envelopeFlap = document.getElementById("envelope-flap");
+
         envelope.classList.remove("open", "extract-letter", "zoom-fade");
         envelopeFlap.style.zIndex = "3";
       });
