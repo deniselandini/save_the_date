@@ -220,9 +220,12 @@
         const envelopeFlap = document.getElementById("envelope-flap");
 
         console.log("clean");
+        console.log("envelope.classList", envelope.classList)
 
         envelope.classList.remove("open", "extract-letter", "zoom-fade");
         envelopeFlap.style.zIndex = "3";
+
+        console.log("envelope.classList", envelope.classList)
       });
 
       envelope.addEventListener("click", () => {
