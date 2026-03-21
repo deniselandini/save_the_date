@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Busta Elegante Interattiva - Realismo Pro</title>
+
+<style>
+    :root {
+        --gold-primary: #d4af37;
+        --gold-light: #f9e29c;
+        --gold-dark: #a67c00;
+        --paper-color: #fdfcf8;
+        --shadow-color: rgba(0, 0, 0, 0.25);
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #e5e5e5;
+        font-family: "Georgia", serif;
+        overflow: hidden;
+    }
+
+    /* CONTENITORE */
+    .envelope {
+        position: relative;
+        width: 420px;
+        height: 600px;
+        perspective: 2000px;
+        /* Ombra proiettata sul tavolo (morbida e profonda) */
+        filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+    }
+
+    /* CORPO DELLA BUSTA */
+    .envelope-body {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(253, 252, 248, 0.6), rgba(253, 252, 248, 0.6)), url(sfondo_25.png);
+        background-size: cover;
+        position: relative;
+        border-radius: 10px;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    /* OMBRE INTERNE (L'effetto "profondità" sotto i lembi laterali) */
+    .envelope-body::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: 
+            radial-gradient(circle at 50% 50%, transparent 20%, rgba(0,0,0,0.05) 100%),
+            linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 15%);
+        pointer-events: none;
+    }
+
+    /* LEMBO SUPERIORE (Quello che si apre) */
+    .flap-top {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(rgba(253, 252, 248, 0.6), rgba(253, 252, 248, 0.6)), url(sfondo_25.png);
+        background-size: cover;
+        clip-path: polygon(-50% 0, 150% 0, 50% 110%);
+        transform-origin: top;
+        transition: transform 1.2s cubic-bezier(0.5, 0, 0.2, 1), z-index 0s 0.6s;
+        z-index: 5;
+        
+        /* OMBRA REALISTICA SUL LEMBO (Stratificata) */
+        filter: 
+            drop-shadow(0 4px 4px rgba(0,0,0,0.15))
+            drop-shadow(0 12px 20px rgba(0,0,0,0.25));
+    }
+
+    /* LEMBO INFERIORE (Fisso) */
+    .flap-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60%;
+        background: linear-gradient(rgba(253, 252, 248, 0.6), rgba(253, 252, 248, 0.6)), url(sfondo_25.png);
+        background-size: cover;
+        clip-path: polygon(-50% 100%, 150% 100%, 50% 0%);
+        z-index: 3;
+        
+        /* OMBRA INFERIORE (Proiettata verso l'alto sulla busta) */
+        filter: 
+            drop-shadow(0 -5px 10px rgba(0,0,0,0.15))
+            drop-shadow(0 -2px 3px rgba(0,0,0,0.1));
+        pointer-events: none;
+    }
+
+    /* ANIMAZIONE APERTURA */
+    .open .flap-top {
+        transform: rotateX(-180deg);
+        z-index: 0;
+        filter: drop-shadow(0 -10px 15px rgba(0,0,0,0.1));
+    }
+
+    /* SIGILLO */
+    .seal {
+        position: absolute;
+        top: 48%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 110px;
+        height: 110px;
+        background: radial-gradient(circle, var(--gold-light), var(--gold-primary) 60%, var(--gold-dark));
+        border-radius: 50%;
+        
+        /* OMBRA DEL SIGILLO (Crea lo stacco fisico dalla carta) */
+        box-shadow:
+            0 10px 20px rgba(0,0,0,0.4),
+            inset 0 2px 4px rgba(255,255,255,0.4),
+            inset 0 -4px 8px rgba(0,0,0,0.3);
+            
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .seal-image {
+        width: 150%;
+        height: 150%;
+        object-fit: contain;
+        pointer-events: none;
+        /* Ombra sottile per il logo dentro il sigillo */
+        filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+    }
+
+    .open .seal {
+        opacity: 0;
+        transform: translate(-50%, -160%) scale(0.5);
+        pointer-events: none;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="envelope" id="envelope">
+    <div class="envelope-body"></div>
+    <div class="flap-bottom"></div>
+    <div class="flap-top"></div>
+
+    <div class="seal" id="seal">
+        <img src="sigillo.png" class="seal-image">
+    </div>
+</div>
+
+<script>
+    const envelope = document.getElementById("envelope");
+    const seal = document.getElementById("seal");
+
+    seal.addEventListener("click", () => {
+        envelope.classList.add("open");
+
+        setTimeout(() => {
+            envelope.style.transition = "all 1.2s ease-in-out";
+            envelope.style.transform = "scale(2.5) translateY(150px)";
+            envelope.style.opacity = "0";
+
+            setTimeout(() => {
+                window.location.href = "busta.html"; 
+            }, 1000);
+        }, 1500);
+    });
+</script>
+
+</body>
+</html>
