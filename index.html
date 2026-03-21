@@ -196,7 +196,7 @@
   <body>
     <section class="cssletter">
       <div class="envelope" id="envelope">
-        <div class="letter"></div>
+        <div class="letter" id="letter"></div>
 
         <div class="envelope-flap" id="envelope-flap">
           <div class="seal" id="seal">
@@ -213,24 +213,23 @@
 
     <script>
       const envelope = document.getElementById("envelope");
+      const letter = document.getElementById("letter");
       const envelopeFlap = document.getElementById("envelope-flap");
 
       window.addEventListener("pageshow", () => {
         const envelope = document.getElementById("envelope");
+        const letter = document.getElementById("letter");
         const envelopeFlap = document.getElementById("envelope-flap");
 
-        console.log("clean (pageshow)");
-        console.log("before:", envelope.classList);
-
         envelope.classList.remove("open", "extract-letter", "zoom-fade");
+        letter.style.opacity = 0;
         envelopeFlap.style.zIndex = "3";
-
-        console.log("after:", envelope.classList);
       });
 
       envelope.addEventListener("click", () => {
         if (envelope.classList.contains("open")) return;
 
+        letter.style.opacity = 1;
         envelope.classList.add("open");
 
         setTimeout(() => {
