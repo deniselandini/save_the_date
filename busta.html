@@ -60,6 +60,7 @@
 			align-items: center;
 			position: relative;
 			animation: fadeInUp 1.2s ease-out forwards;
+            mask-image: radial-gradient(white, black);
 			-webkit-mask-image: -webkit-radial-gradient(white, black);
 		}
 
@@ -179,6 +180,7 @@
         }
         .btn:nth-child(1) { animation-delay: 2.1s; }
         .btn:nth-child(2) { animation-delay: 2.3s; }
+        .btn:nth-child(3) { animation-delay: 2.5s; }
         .btn:hover { background: var(--accent); color: white; transform: scale(1.03); }
 
         .star { position: absolute; background: white; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); opacity: 0; animation: sparkle var(--d) infinite; }
@@ -279,7 +281,7 @@
         <div class="actions delay-5">
             <a href="#" id="cal-link" class="btn">SALVA NEL CALENDARIO</a>
             <a href="https://maps.google.com/?q=Villa+dei+Mulini+Mantova" id="map-link" class="btn" target="_blank">VEDI LA LOCATION</a>
-			<a href="https://www.matrimonio.com/website/index.php?idWebsite=8259193&idPage=58896339" id="conferma-link" class="btn" target="_blank">CONFERMA PRESENZA</a>
+            <a href="https://www.matrimonio.com/website/index.php?idWebsite=8259193&idPage=58896339" id="conferma-link" class="btn" target="_blank">CONFERMA PRESENZA</a>
         </div>
         
         <div class="floral-icon delay-5" style="animation-delay: 2s;">✧</div>
