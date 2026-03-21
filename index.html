@@ -215,17 +215,17 @@
       const envelope = document.getElementById("envelope");
       const envelopeFlap = document.getElementById("envelope-flap");
 
-      document.addEventListener("DOMContentLoaded", () => {
+      window.addEventListener("pageshow", () => {
         const envelope = document.getElementById("envelope");
         const envelopeFlap = document.getElementById("envelope-flap");
 
-        console.log("clean");
-        console.log("envelope.classList", envelope.classList)
+        console.log("clean (pageshow)");
+        console.log("before:", envelope.classList);
 
         envelope.classList.remove("open", "extract-letter", "zoom-fade");
         envelopeFlap.style.zIndex = "3";
 
-        console.log("envelope.classList", envelope.classList)
+        console.log("after:", envelope.classList);
       });
 
       envelope.addEventListener("click", () => {
