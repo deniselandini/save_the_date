@@ -194,6 +194,9 @@
   </head>
 
   <body>
+    <audio id="bgMusic" src="background.mpeg" loop autoplay></audio>
+    <audio id="chestMusic" src="zelda_chest.mp3"></audio>
+
     <section class="cssletter">
       <div class="envelope" id="envelope">
         <div class="letter" id="letter"></div>
@@ -216,6 +219,15 @@
       const letter = document.getElementById("letter");
       const envelopeFlap = document.getElementById("envelope-flap");
 
+      const chestMusic = document.getElementById("chestMusic");
+      
+      const bgMusic = document.getElementById("bgMusic");
+      document.body.addEventListener("click", () => {
+        if (bgMusic.paused) {
+          bgMusic.play().catch(error => console.log("Audio play failed:", error));
+        }
+      }, { once: true });
+
       window.addEventListener("pageshow", () => {
         const envelope = document.getElementById("envelope");
         const letter = document.getElementById("letter");
@@ -228,6 +240,8 @@
 
       envelope.addEventListener("click", () => {
         if (envelope.classList.contains("open")) return;
+
+        //chestMusic.play();
 
         letter.style.opacity = 1;
         envelope.classList.add("open");

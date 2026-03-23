@@ -271,12 +271,13 @@
     </style>
 </head>
 <body>
+    <audio id="bgMusic" src="background.mpeg" loop autoplay></audio>
 
     <div class="envelope">
-        <div class="floral-top-left"></div>
-        <div class="floral-bottom-right"></div>
-        <div class="floral-top-right"></div>
-        <div class="floral-bottom-left"></div>
+        <div class="floral-top-left" style="z-index: 0;"></div>
+        <div class="floral-bottom-right" style="z-index: 0;"></div>
+        <div class="floral-top-right" style="z-index: 0;"></div>
+        <div class="floral-bottom-left" style="z-index: 0;"></div>
 
         <div class="title delay-1">Programma</div>
 
@@ -345,5 +346,20 @@
 		<a href="listaNozze.html" class="nav-item">Lista Nozze</a>
 		<a href="info.html" class="nav-item">Dress Code</a>
 	</nav>
+
+    <script>
+      const bgMusic = document.getElementById("bgMusic");
+      document.body.addEventListener(
+        "click",
+        () => {
+          if (bgMusic.paused) {
+            bgMusic
+              .play()
+              .catch((error) => console.log("Audio play failed:", error));
+          }
+        },
+        { once: true },
+      );
+    </script>
 </body>
 </html>
