@@ -511,10 +511,10 @@
     <audio id="bgMusic" src="background.mpeg" loop autoplay></audio>
 
     <div class="envelope">
-      <div class="floral-top-left" style="z-index: 0;"></div>
-      <div class="floral-bottom-right" style="z-index: 0;"></div>
-      <div class="floral-top-right" style="z-index: 0;"></div>
-      <div class="floral-bottom-left" style="z-index: 0;"></div>
+      <div class="floral-top-left" style="z-index: 0"></div>
+      <div class="floral-bottom-right" style="z-index: 0"></div>
+      <div class="floral-top-right" style="z-index: 0"></div>
+      <div class="floral-bottom-left" style="z-index: 0"></div>
 
       <div class="floral-icon delay-1">✧</div>
       <div class="tagline delay-1">Save the Date</div>
@@ -733,6 +733,66 @@
 
     <script>
       const bgMusic = document.getElementById("bgMusic");
+      const FADE_DURATION = 500;
+
+      window.addEventListener("load", () => {
+        const savedTime = localStorage.getItem("musicTime");
+        if (savedTime) {
+          bgMusic.currentTime = parseFloat(savedTime);
+        }
+
+        // Start at volume 0 for the fade-in effect
+        bgMusic.volume = 0;
+
+        bgMusic
+          .play()
+          .then(() => {
+            fadeAudio(bgMusic, 1, FADE_DURATION); // Fade from 0 to 1
+          })
+          .catch(() => {
+            localStorage.setItem("musicTime", 0);
+            console.log(
+              "Autoplay blocked: User needs to click something first!",
+            );
+          });
+      });
+
+      document.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          // Only intercept internal links (don't break external ones)
+          if (link.hostname === window.location.hostname) {
+            e.preventDefault(); // Stop the page from changing immediately
+            const targetUrl = link.href;
+
+            fadeAudio(bgMusic, 0, FADE_DURATION, () => {
+              // Once volume is 0, save the time and navigate
+              localStorage.setItem("musicTime", bgMusic.currentTime);
+              window.location.href = targetUrl;
+            });
+          }
+        });
+      });
+
+      function fadeAudio(player, targetVolume, duration, callback) {
+        const startVolume = player.volume;
+        const startTime = performance.now();
+
+        function animateVolume(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+
+          // Linear interpolation between start and target volume
+          player.volume =  Math.max(0, Math.min(1, startVolume + (targetVolume - startVolume) * progress));
+
+          if (progress < 1) {
+            requestAnimationFrame(animateVolume);
+          } else if (callback) {
+            callback();
+          }
+        }
+        requestAnimationFrame(animateVolume);
+      }
+
       document.body.addEventListener(
         "click",
         () => {
@@ -740,6 +800,7 @@
             bgMusic
               .play()
               .catch((error) => console.log("Audio play failed:", error));
+              fadeAudio(bgMusic, 1, FADE_DURATION);
           }
         },
         { once: true },
@@ -747,4 +808,3 @@
     </script>
   </body>
 </html>
-
