@@ -469,6 +469,25 @@
         requestAnimationFrame(animateVolume);
       }
 
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          // The user exited the app or switched tabs
+          // We pause it so it doesn't run in the background
+          bgMusic.pause();
+          // Save the time immediately so we don't lose progress
+          sessionStorage.setItem("musicTime", bgMusic.currentTime);
+        } else {
+          // The user came back to the browser
+          const savedTime = sessionStorage.getItem("musicTime");
+          if (savedTime) {
+            bgMusic.currentTime = parseFloat(savedTime);
+          }
+          bgMusic
+            .play()
+            .catch(() => console.log("User interaction required to resume"));
+        }
+      });
+
       // 2. Continually save the current time
       bgMusic.ontimeupdate = () => {
         localStorage.setItem("musicTime", bgMusic.currentTime);
