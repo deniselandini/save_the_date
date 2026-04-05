@@ -75,7 +75,7 @@
         .floral-bottom-right { position: absolute; bottom: -2px; right: -2px; width: 250px; height: 250px; background: url('destra_basso_sfondo.png') no-repeat bottom right; background-size: contain; z-index: 20; pointer-events: none; animation: floatCorner 5s ease-in-out infinite alternate-reverse; }
         .floral-top-right { position: absolute; top: -2px; right: -2px; width: 200px; height: 200px; background: url('destra_alto_1.png') no-repeat top right; background-size: contain; z-index: 20; pointer-events: none; animation: floatCorner 5s ease-in-out infinite alternate; }
         .floral-bottom-left { position: absolute; bottom: -2px; left: -2px; width: 200px; height: 200px; background: url('cornice_sinistra_1.png') no-repeat bottom left; background-size: contain; z-index: 20; pointer-events: none; animation: floatCorner 5s ease-in-out infinite alternate-reverse; }
-		
+
         .floral-icon { font-size: 1.5rem; color: var(--accent); opacity: 0.6; margin-bottom: 10px; position: relative; z-index: 21; animation: float 8s ease-in-out infinite; }
         
 
@@ -176,17 +176,54 @@
         .delay-5 { animation: fadeInUp 0.8s ease-out 1.5s both; }
         .delay-6 { animation: fadeInUp 0.8s ease-out 1.8s both; }
         .delay-7 { animation: fadeInUp 0.8s ease-out 2.1s both; }
-
-        @media (max-width: 480px) {
-			.envelope { padding: 50px 20px; border-radius: 30px;}
-            .swatch { width: 40px; height: 40px; }
-            .title { font-size: 2.1rem; }
-			.description { width: 70%; }
-			.floral-top-left, .floral-bottom-right { width: 180px; height: 180;}
-			.floral-bottom-left, .floral-top-right { width: 150px; height: 150px; }
-			.foot { font-size: 1.2rem; }
-        }
 		
+		
+	  /* Nasconde il menu su schermi molto piccoli o fa aggiustamenti */
+      @media (max-width: 480px) {
+        .bottom-nav {
+          width: 90%;
+          justify-content: space-between;
+          padding: 12px 15px;
+          gap: 5px;
+        }
+        .nav-item {
+          font-size: 0.55rem;
+        }
+      }
+	  
+      @media (max-width: 480px) {
+        .envelope {
+          padding: 50px 20px;
+          border-radius: 30px;
+        }
+        .title {
+          font-size: 2.5rem;
+        }
+        .foot {
+          font-size: 1.2rem;
+        }
+        .time {
+          font-size: 1.2rem;
+        }
+        .label {
+          font-size: 1.6rem;
+        }
+        .icon-box {
+          width: 35px;
+          height: 35px;
+        }
+        .floral-top-left,
+        .floral-bottom-right {
+          width: 180px;
+          height: 180px;
+        }
+        .floral-bottom-left,
+        .floral-top-right {
+          width: 150px;
+          height: 150px;
+        }
+      }
+
 				
 		.bottom-nav {
 			position: fixed;
